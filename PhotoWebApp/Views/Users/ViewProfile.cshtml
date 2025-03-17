@@ -1,0 +1,50 @@
+﻿@model Users
+
+@{
+    var userName = User.Identity.Name;
+    ViewData["Title"] = $"{userName.Substring(0, 1).ToUpper()}{userName.Substring(1)}";
+}
+
+@if (TempData["Message"] != null)
+{
+    if (TempData["IsSuccess"] != null && (bool)TempData["IsSuccess"])
+    {
+        <div class="alert alert-dismissible alert-success">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>@TempData["Message"]</strong>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-dismissible alert-danger">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>@TempData["Message"]</strong>
+        </div>
+    }
+}
+
+<h1 style="margin: 0px 0px 15px 10px">Welcome, @User.Identity.Name!</h1>
+<div class="container">
+    <div class="row">
+        <label class="col-md-2 col-form-label">Email</label>
+        <div class="col-sm-10">
+            <p class="form-control-plaintext"> @Model.Email </p>
+        </div>
+        <label class="col-md-2 col-form-label">Username</label>
+        <div class="col-sm-10">
+            <p class="form-control-plaintext"> @Model.Username </p>
+        </div>
+        <label class="col-md-2 col-form-label">Role</label>
+        <div class="col-sm-10">
+            <p class="form-control-plaintext"> @Model.Role </p>
+        </div>
+        <div class="col-sm-10">
+            <a asp-controller="Users" asp-action="Edit" asp-route-id="@Model?.UserId" class="btn btn-outline-secondary" style="margin:5px 0px 5px; border-radius:5px">
+                <i class="bi bi-pencil-square"></i>Edit
+            </a>
+            <a asp-controller="Users" asp-action="Delete" asp-route-id="@Model?.UserId" class="btn btn-outline-danger" style="margin:5px 0px 5xp 5px; border-radius:5px">
+                <i class="bi bi-trash"></i>Delete
+            </a>
+        </div>
+    </div>
+</div>

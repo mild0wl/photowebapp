@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Internal Server Error";
+}
+
+@if (TempData["Message"] != null)
+{
+    if (TempData["IsSuccess"] != null && (bool)TempData["IsSuccess"])
+    {
+        <div class="alert alert-dismissible alert-success">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>@TempData["Message"]</strong>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-dismissible alert-danger">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>@TempData["Message"]</strong>
+        </div>
+    }
+}
+
+<h1>Oops!</h1>
+<p>If you see this page, it means 500 Internal happened!</p>

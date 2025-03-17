@@ -1,0 +1,64 @@
+﻿@model Users
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+@if (TempData["Message"] != null)
+{
+    if (TempData["IsSuccess"] != null && (bool)TempData["IsSuccess"])
+    {
+        <div class="alert alert-dismissible alert-success">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>@TempData["Message"]</strong>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-dismissible alert-danger">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>@TempData["Message"]</strong>
+        </div>
+    }
+}
+
+@if (ViewBag.Message != null)
+{
+    if (ViewBag.IsSuccess == true)
+    {
+        <div class="alert alert-dismissible alert-success">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>@ViewBag.Message</strong>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-dismissible alert-danger">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>@ViewBag.Message</strong>
+        </div>
+    }
+}
+
+
+<h1 style="margin: 0px 0px 15px 10px">Login Page</h1>
+<div class="container">
+    <div class="row">
+        <form asp-action="SendToken" method="post">
+        <div class="form-floating mb-3">
+                <input asp-for="Email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com" required>
+            <label for="floatingInput">Email address</label>
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin:0px 0px 15px 0px; border-radius:5px">Send Token</button>
+        </form>
+
+        <form asp-action="VerifyToken" method="post">
+            <div class="form-floating mb-3">
+                <input asp-for="Token" type="text" class="form-control" id="floatingInput" placeholder="Enter Token" required>
+                <label for="floatingInput">Enter Token</label>
+            </div>
+            <input asp-for="Email" hidden />
+            <button type="submit" class="btn btn-primary" style="margin:5px 0px; border-radius:5px">Submit</button>
+        </form>
+    </div>
+</div>

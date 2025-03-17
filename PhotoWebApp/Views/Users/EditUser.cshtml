@@ -1,0 +1,53 @@
+﻿@model Users
+
+<h2>Edit User Details</h2>
+
+@if (ViewBag.Message != null)
+{
+    if (ViewBag.IsSuccess == true)
+    {
+        <div class="alert alert-dismissible alert-success">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>@ViewBag.Message</strong>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-dismissible alert-danger">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>@ViewBag.Message</strong>
+        </div>
+    }
+}
+
+<label class="col-md-2 col-form-label">Email</label>
+<div class="col-sm-10">
+    <p class="form-control-plaintext"> @Model.Email </p>
+
+<label class="col-md-2 col-form-label">Username</label>
+
+    <p class="form-control-plaintext"> @Model.Username </p>
+</div>
+
+<form asp-action="EditUser" method="post">
+    <div class="col-sm-4">
+        <label for="Role" class="form-label mt-4">Change Role</label>
+        <select asp-for="Role" class="form-select" >
+            @foreach (var role in Enum.GetValues(typeof(UserRole)).Cast<UserRole>().Where(r => r != UserRole.Unknown))
+            {
+                @if (role == Model.Role)
+                {
+                    <option value="@role" selected>@role</option>
+                }
+                else
+                {
+                    <option value="@role">@role</option>
+                }
+            }
+        </select>
+    </div>
+    <a asp-controller="Users" asp-action="DeleteUser" asp-route-id="@Model?.UserId" class="btn btn-outline-danger" style="margin:10px 5px 5px 5px; border-radius: 5px">
+        <i class="bi bi-trash"></i>Delete
+    </a>
+    <button type="submit" class="btn btn-primary" style="margin:10px 5px 5px 5px; border-radius:5px">Update</button>
+</form>

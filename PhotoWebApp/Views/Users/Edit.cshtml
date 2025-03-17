@@ -1,0 +1,35 @@
+﻿@model Users
+
+<h2>Edit User Details</h2>
+
+@if (ViewBag.Message != null)
+{
+    if (ViewBag.IsSuccess == true)
+    {
+        <div class="alert alert-dismissible alert-danger">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>@ViewBag.Message</strong>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-dismissible alert-danger">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>@ViewBag.Message</strong>
+        </div>
+    }
+}
+
+<form asp-action="Edit" method="post">
+    <input asp-for="UserId" hidden />
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="col-md-4">
+        <label class="form-label mt-4">Username</label>
+        <input asp-for="Username" type="text" class="form-control" aria-describedby="Username" placeholder="Username">
+    </div>
+    <div class="col-sm-4">
+        <label class="form-label mt-4">Email</label>
+        <input asp-for="Email" type="text" class="form-control" aria-describedby="Email" placeholder="Email">
+    </div>
+    <button type="submit" class="btn btn-primary" style="margin:10px 0px; border-radius:5px">Update</button>
+</form>

@@ -1,0 +1,37 @@
+﻿@model Photo
+
+
+@{
+    ViewData["Title"] = "Upload Photo";
+}
+
+<h2 style="margin: 0px 0px 15px 10px">Upload Photo</h2>
+
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div>
+        <label for="exampleInputEmail1" class="form-label mt-4">Photo Title</label>
+        <input asp-for="photoTitle" type="text" class="form-control" aria-describedby="PhotoTitle" placeholder="Enter Photo Title">
+    </div>
+    <div>
+        <label for="exampleTextarea" class="form-label mt-4">Enter Description</label>
+        <textarea asp-for="description" class="form-control" id="exampleTextarea" rows="3"></textarea>
+    </div>
+    <div>
+        <label asp-for="PhotoFile" class="form-label mt-4">Upload Photo here</label>
+        <input asp-for="PhotoFile" asp-validation-for="PhotoFile" class="form-control" type="file" accept=".jpg,.jpeg,.png,.gif" />
+    </div>
+    <div>
+        <label for="exampleInputEmail1" class="form-label mt-4">Enter Tags</label>
+        <input asp-for="tags" type="text" class="form-control" aria-describedby="PhotoTitle" placeholder="Enter Photo Tags">
+    </div>
+    <div class="form-check form-switch" style="padding: 10px 45px">
+        <input asp-for="CommentMode" class="form-check-input" style="border-radius:15px" type="checkbox" id="flexSwitchCheckDefault">
+        <label class="form-check-label" for="flexSwitchCheckDefault">Disable Comments</label>
+    </div>
+    <div class="form-check form-switch" style="padding: 10px 45px">
+    <input asp-for="IsPublic" class="form-check-input" style="border-radius:15px" type="checkbox" id="flexSwitchCheckChecked">
+        <label class="form-check-label" for="flexSwitchCheckChecked">Hide from Public</label>
+    </div>
+    <button type="submit" class="btn btn-primary" style="margin:5px 0px; border-radius:5px">Submit</button>          
+</form>

@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Logs of Server";
+}
+
+@if (TempData["Message"] != null)
+{
+    if (TempData["IsSuccess"] != null && (bool)TempData["IsSuccess"])
+    {
+        <div class="alert alert-dismissible alert-success">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>@TempData["Message"]</strong>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-dismissible alert-danger">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>@TempData["Message"]</strong>
+        </div>
+    }
+}
+
+@if (Model != null)
+{
+    <pre style="white-space: pre-wrap;">@Model</pre>  <!-- Display the full log content -->
+}
+else
+{
+    <p>No logs available.</p>
+}

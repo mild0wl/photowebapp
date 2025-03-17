@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoWebApp", "PhotoWebApp\PhotoWebApp.csproj", "{FCFAC868-E366-448E-BA54-76D6BE5CF777}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoWebApp.IntegrationTests", "PhotoWebApp.IntegrationTests\PhotoWebApp.IntegrationTests.csproj", "{09C87C0D-8AD7-400A-870C-9AD1950F0664}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FCFAC868-E366-448E-BA54-76D6BE5CF777}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCFAC868-E366-448E-BA54-76D6BE5CF777}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCFAC868-E366-448E-BA54-76D6BE5CF777}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCFAC868-E366-448E-BA54-76D6BE5CF777}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09C87C0D-8AD7-400A-870C-9AD1950F0664}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09C87C0D-8AD7-400A-870C-9AD1950F0664}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09C87C0D-8AD7-400A-870C-9AD1950F0664}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09C87C0D-8AD7-400A-870C-9AD1950F0664}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4DFD9AAF-8699-41EF-8C1F-5D9248D7060A}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,60 @@
+﻿@model PhotoGalleryViewModel
+
+<div class="container">
+    <div class="row">
+        @foreach (var obj in Model.Photos.OrderByDescending(u => u.LikesCount))
+        {
+            @if (obj.IsPublic == false|| User.Identity.IsAuthenticated)
+            {
+                <div class="col-sm-4">
+                    <div class="card mb-3">
+                        <h3 class="card-header">@obj.photoTitle</h3>
+                        <a asp-controller="Photo" asp-action="ViewPhoto" asp-route-id="@obj.photoId">
+                            <img src="@obj.FilePath" class="img-fluid" alt="Image cap" style="width: 100%; height: 200px; object-fit: cover;">
+                        </a>
+
+
+                        <div class="card-body">
+                            <p class="card-text">@obj.description</p>
+                        </div>
+                        <div class="card-body">
+                            <a asp-controller="Photo" asp-action="Like" asp-route-id="@obj.photoId" class="card-link link-underline link-underline-opacity-0">
+                                <i class="bi bi-heart text-danger"></i>@obj.LikesCount
+                            </a>
+                            <a href="#" class="card-link">@obj.tags</a>
+                        </div>
+                        @if (User.IsInRole("ContentCreator") || User.IsInRole("Admin"))
+                        {
+
+                            <div class="card-footer text-muted text-end">
+                                @try{
+                                    @if (obj != null)
+                                    {
+                                        @if (obj.userId == Model.User.UserId)
+                                        {
+                                            <a asp-controller="Photo" asp-action="Edit" asp-route-id="@obj.photoId" class="btn btn-outline-secondary btn-sm" style="margin:1px">
+                                                <i class="bi bi-pencil-square"></i>Edit
+                                            </a>
+                                        }
+                                        if (obj.userId == Model.User.UserId || User.IsInRole("Admin"))
+                                        {
+                                            <a asp-controller="Photo" asp-action="Delete" asp-route-id="@obj.photoId" class="btn btn-outline-danger btn-sm" style="margin:1px">
+                                                <i class="bi bi-trash"></i>Delete
+                                            </a>
+                                        }
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    <script>
+                                        window.location.href = '/Auth';
+                                    </script>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

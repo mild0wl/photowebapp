@@ -1,0 +1,77 @@
+﻿@model List<Comment>
+
+@{
+    ViewData["Title"] = "View Comments";
+}
+
+@if (ViewBag.Message != null)
+{
+    if (ViewBag.IsSuccess == true)
+    {
+        <div class="alert alert-dismissible alert-success">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>@ViewBag.Message</strong>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-dismissible alert-danger">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>@ViewBag.Message</strong>
+        </div>
+    }
+}
+
+@if (User.IsInRole("ContentCreator") || User.IsInRole("Admin"))
+{
+    <h1 style="margin: 0px 0px 15px 10px">List of Comments</h1>
+    <div class="container">
+        <div class="row">
+            @foreach (var obj in Model.OrderByDescending(u => u.DatePosted))
+            {
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex flex-row align-items-center">
+                                <p>@obj.commentValue</p>
+                            </div>
+                            <div class="d-flex flex-row align-items-center">
+                                @if (User.IsInRole("ContentCreator"))
+                                {
+                                    <a asp-controller="Comment" asp-action="Flag" asp-route-id="@obj.CommentId" class="btn btn-outline-warning btn-sm" style="margin:3px">
+                                        <i class="bi bi-flag"></i>Flag
+                                    </a>
+                                }
+
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    @if (obj.Flagged == true)
+                                    {
+                                        <a class="btn btn-outline-warning btn-sm" style="margin:3px">
+                                            <i class="bi bi-flag"></i>Flagged
+                                        </a>
+                                    }
+                                    <a asp-controller="Comment" asp-action="Delete" asp-route-id="@obj.CommentId" class="btn btn-outline-danger btn-sm" style="margin:3px">
+                                        <i class="bi bi-trash"></i>Delete
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex flex-row align-items-center">
+                                <i class="bi bi-person-circle"></i>
+                                <p class="small mb-0 ms-2">Anonymous</p>
+                            </div>
+                            <div class="d-flex flex-row align-items-center">
+                                <p class="small text-muted mb-0">DatePosted:</p>
+                                <i class="far fa-thumbs-up mx-2 fa-xs text-body" style="margin-top: -0.16rem;"></i>
+                                <p class="small text-muted mb-0">@obj.DatePosted</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+}

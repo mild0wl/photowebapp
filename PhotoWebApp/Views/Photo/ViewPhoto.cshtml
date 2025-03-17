@@ -1,0 +1,107 @@
+﻿@model Photo
+
+@{
+    ViewData["Title"] = "View Photo";
+    var userId = ViewBag.UserId;
+}
+
+
+<div class="container">
+    <div class="row">
+        <!-- View Photo Section--> 
+        <div class="col-12">
+            <div class="card mb-5">
+                <div class="card-header text-center">
+                    <h2>@Model?.photoTitle</h2> <!-- Display photo title prominently -->
+                </div>
+                
+                <img src="@Model?.FilePath" class="img-fluid" alt="Image" style="width: 100%; height: 600px; object-fit: cover;">
+
+
+                <div class="card-body text-center">
+                    <p class="lead">@Model?.description</p>
+                </div>
+
+
+                <div class="d-flex justify-content-center">
+                    <a asp-controller="Photo" asp-action="Like" asp-route-id="@Model?.photoId" class="btn btn-light me-3">
+                        <i class="bi bi-heart text-danger"></i>@Model?.LikesCount Likes
+                    </a>
+                    @if (User.IsInRole("ContentCreator") || User.IsInRole("Admin"))
+                    {
+                        @if (Model.userId == userId)
+                        {
+                            <a asp-controller="Photo" asp-action="Edit" asp-route-id="@Model?.photoId" class="btn btn-outline-secondary btn-sm" style="margin:5px 5px 5px 5px">
+                                <i class="bi bi-pencil-square"></i>Edit
+                            </a>
+                        }
+                        if (Model.userId == userId || User.IsInRole("Admin"))
+                        {
+                            <a asp-controller="Photo" asp-action="Delete" asp-route-id="@Model?.photoId" class="btn btn-outline-danger btn-sm" style="margin:5px 5px 5px 5px">
+                                <i class="bi bi-trash"></i>Delete
+                            </a>
+                        }
+                    }
+                </div>
+
+                <div class="card-footer text-muted text-center">
+                    <a href="#" class="card-link">@Model?.tags</a>
+                </div>
+
+                <!-- Comment Section-->
+                @if (@Model.CommentMode == false)
+                {
+                    <form method="post" asp-controller="Comment" asp-action="PostComment">
+                        <fieldset>
+                            <input type="hidden" asp-for="photoId" value="@Model?.photoId" />
+                            <div>
+                                <textarea name="commentValue" class="form-control" style="margin: 10px 0 5px 0;" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="margin: 5px 0 15px 0;">Add Comment</button>
+                        </fieldset>
+                    </form>
+                }
+
+
+                @foreach (var obj in Model.Comment.OrderBy(u => u.DatePosted))
+                {
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            @if (Model.Comment != null && Model.Comment.Any())
+                            {
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex flex-row align-items-center">
+                                        <p>@obj.commentValue</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex flex-row align-items-center">
+                                        <i class="bi bi-person-circle"></i>
+                                        <p class="small mb-0 ms-2">Anonymous</p>
+                                    </div>
+                                    <div class="d-flex flex-row align-items-center">
+                                        <p class="small text-muted mb-0">DatePosted:</p>
+                                        <i class="far fa-thumbs-up mx-2 fa-xs text-body" style="margin-top: -0.16rem;"></i>
+                                        <p class="small text-muted mb-0">@obj.DatePosted</p>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex flex-row align-items-center">
+                                        <p>No Comments!</p>
+                                    </div>
+                                </div>
+                            }
+
+
+                        </div>
+                    </div>
+                }
+            </div>
+
+            </div>
+        
+    </div>
+</div>

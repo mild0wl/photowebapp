@@ -1,0 +1,61 @@
+﻿@model List<Users>
+
+@{
+    ViewData["Title"] = "List Users";
+}
+
+@if (TempData["Message"] != null)
+{
+    if (TempData["IsSuccess"] != null && (bool)TempData["IsSuccess"])
+    {
+        <div class="alert alert-dismissible alert-success">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>@TempData["Message"]</strong>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-dismissible alert-danger">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>@TempData["Message"]</strong>
+        </div>
+    }
+}
+
+<h1 style="margin: 0px 0px 15px 10px">List Users</h1>
+
+<div class="container">
+    <div class="row">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Username</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Role</th>
+                        @if (User.IsInRole("Admin"))
+                        {
+                        <th scope="col">Change Role</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var obj in Model.OrderBy(u => u.Role))
+                {
+                    <tr>
+                        <td>@obj.Username</td>
+                        <td>@obj.Email</td>
+                        <td>@obj.Role</td>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <td>
+                                <a asp-controller="Users" asp-action="EditUser" asp-route-id="@obj.UserId" class="btn btn-outline-secondary btn-sm">
+                                    <i class="bi bi-pencil-square"></i>Edit
+                                </a>
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+            </table>
+    </div>
+</div>
